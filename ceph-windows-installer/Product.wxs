@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+     xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+  <Product Id="{0DF60ED5-6C22-49A0-913E-77412D35C400}" Name="Ceph for Windows" Language="1033" Version="1.0.0.0"
+           Manufacturer="Ceph" UpgradeCode="da802b12-433d-4742-a7ae-783aa0c48222">
+    <Package InstallerVersion="405" Compressed="yes" InstallScope="perMachine" InstallPrivileges="elevated" Platform="x64" />
+
+    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+    <MediaTemplate EmbedCab="yes" CompressionLevel="mszip" />
+
+    <Feature Id="CephCLI" Title="Windows Ceph CLI" Level="1" Absent="disallow" InstallDefault="local" TypicalDefault="install" AllowAdvertise="no"
+             Description="Installs the Ceph command line tools."
+             ConfigurableDirectory="INSTALLDIR" Display="expand">
+      <ComponentGroupRef Id="BinariesComponentGroup" />
+      <ComponentGroupRef Id="SymbolsComponentGroup" />
+      <ComponentRef Id="CephEnvVars" />
+
+      <Feature Id="VC120Redist" Title="Visual C++ 12.0 Runtime" AllowAdvertise="no" Display="hidden" Level="1"
+               Absent="disallow" InstallDefault="followParent" TypicalDefault="install">
+      </Feature>
+    </Feature>
+
+    <Feature Id="CephDriver" Title="Windows Ceph RBD NBD driver" Level="1" Absent="allow" InstallDefault="local" TypicalDefault="install" AllowAdvertise="no"
+             Description="Installs the Windows Ceph RBD NBD driver." Display="expand">
+      <ComponentRef Id="LogsDir" />
+      <ComponentRef Id="AppDataDir" />
+    </Feature>
+
+    <UIRef Id="MyWixUI_FeatureTree" />
+    <UIRef Id="WixUI_ErrorProgressText" />
+
+    <WixVariable Id="WixUIBannerBmp" Value="images\bannrbmp.bmp" />
+    <WixVariable Id="WixUIDialogBmp" Value="images\dlgbmp.bmp" />
+    <WixVariable Id="WixUILicenseRtf" Value="License.rtf" />
+
+    <InstallExecuteSequence>
+      <Custom Action="ChangeCephService" Before="InstallFinalize"><![CDATA[REMOVE <> "ALL"]]></Custom>
+    </InstallExecuteSequence>
+  </Product>
+
+  <Fragment>
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLDIR" Name="Ceph" />
+      </Directory>
+      <Directory Id="CommonAppDataFolder">
+        <Directory Id="APPDATADIR" Name="Ceph">
+          <Component Id="AppDataDir" Guid="{9FAA3CD1-2234-4D6E-A974-D3D48A40773F}">
+            <CreateFolder />
+          </Component>
+        </Directory>
+      </Directory>
+    </Directory>
+
+    <DirectoryRef Id="INSTALLDIR">
+      <Directory Id="BINARIESDIR" Name="bin" />
+    </DirectoryRef>
+
+    <DirectoryRef Id="INSTALLDIR">
+      <Directory Id="SYMBOLSDIR" Name="symbols" />
+    </DirectoryRef>
+
+    <DirectoryRef Id="INSTALLDIR">
+      <Directory Id="DRIVERDIR" Name="driver" />
+    </DirectoryRef>
+
+    <DirectoryRef Id="INSTALLDIR">
+      <Directory Id="LOGSDIR" Name="logs">
+        <Component Id="LogsDir" Guid="{CA78C399-6E2C-4D39-88FB-1F58AC9DF8AC}">
+          <CreateFolder />
+        </Component>
+      </Directory>
+    </DirectoryRef>
+
+    <DirectoryRef Id="INSTALLDIR">
+      <Directory Id="CONFDIR" Name="conf" />
+    </DirectoryRef>
+  </Fragment>
+
+  <Fragment>
+    <DirectoryRef Id="TARGETDIR">
+      <Component Id="CephEnvVars" Guid="{4FCCA9D3-77BE-4283-815E-E3E63D4BF763}">
+        <Environment Id="PATH" Name="PATH" Value="[BINARIESDIR]" Permanent="no" Part="last" Action="set" System="yes" />
+      </Component>
+    </DirectoryRef>
+  </Fragment>
+
+</Wix>
