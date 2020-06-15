@@ -9,7 +9,7 @@ Requirements
 Visual Studio 2019 Community, Professional, Premium or Ultimate edition
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Visual Studio Community 2013 is freely available at:
+Visual Studio Community 2019 is freely available at:
 https://www.visualstudio.com/en-us/products/visual-studio-community-vs.aspx
 
 WiX Toolset 3.11
