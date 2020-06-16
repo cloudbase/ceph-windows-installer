@@ -15,8 +15,9 @@
       <ComponentRef Id="CephEnvVars" />
     </Feature>
 
-    <Feature Id="CephDriver" Title="Windows Ceph RBD NBD driver" Level="1" Absent="allow" InstallDefault="local" TypicalDefault="install" AllowAdvertise="no"
+    <Feature Id="WindowsCephDriver" Title="Windows Ceph RBD NBD driver" Level="1" Absent="allow" InstallDefault="local" TypicalDefault="install" AllowAdvertise="no"
              Description="Installs the Windows Ceph RBD NBD driver." Display="expand">
+      <ComponentRef Id="WindowsCephDriver" />
       <ComponentRef Id="LogsDir" />
       <ComponentRef Id="AppDataDir" />
     </Feature>
@@ -29,7 +30,13 @@
     <WixVariable Id="WixUILicenseRtf" Value="License.rtf" />
 
     <InstallExecuteSequence>
+      <Custom Action="InstallWindowsCephDriver_Prop" After="CostFinalize"><![CDATA[REMOVE <> "ALL" AND (&WindowsCephDriver = 3)]]></Custom>
+      <Custom Action="InstallWindowsCephDriver" Before="InstallFinalize" ><![CDATA[REMOVE <> "ALL" AND (&WindowsCephDriver = 3)]]></Custom>
+
+      <Custom Action="UninstallWindowsCephDriver_Prop" Before="RemoveFiles"><![CDATA[(&WindowsCephDriver=2) AND (!WindowsCephDriver=3)]]></Custom>
+      <Custom Action="UninstallWindowsCephDriver" Before="RemoveFiles" ><![CDATA[(&WindowsCephDriver=2) AND (!WindowsCephDriver=3)]]></Custom>
     </InstallExecuteSequence>
+    <SetProperty Id="ARPINSTALLLOCATION" Value="[INSTALLDIR]" After="CostFinalize" />
   </Product>
 
   <Fragment>
@@ -71,6 +78,16 @@
     <DirectoryRef Id="TARGETDIR">
       <Component Id="CephEnvVars" Guid="{4FCCA9D3-77BE-4283-815E-E3E63D4BF763}">
         <Environment Id="PATH" Name="PATH" Value="[BINARIESDIR]" Permanent="no" Part="last" Action="set" System="yes" />
+      </Component>
+    </DirectoryRef>
+  </Fragment>
+
+  <Fragment>
+    <DirectoryRef Id="DRIVERDIR">
+      <Component Id='WindowsCephDriver' Guid='{7A1E2446-8196-4738-8362-5CFD55896A7A}'>
+        <File Id='wnbd.sys' Name='wnbd.sys' DiskId='1' Source='Driver\wnbd.sys' Checksum='yes' KeyPath='yes' />
+        <File Id='wnbd.inf' Name='wnbd.inf' DiskId='1' Source='Driver\wnbd.inf' Checksum='yes' />
+        <File Id='wnbd.cat' Name='wnbd.cat' DiskId='1' Source='Driver\wnbd.cat' Checksum='yes' />
       </Component>
     </DirectoryRef>
   </Fragment>

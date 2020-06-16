@@ -2,5 +2,19 @@
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
   <Fragment>
     <Binary Id="CephActions" SourceFile="Actions\CephActions.js" />
+
+    <CustomAction Id="InstallWindowsCephDriver_Prop" Property="InstallWindowsCephDriver"
+                  Value='"[BINARIESDIR]\devcon.exe" install "[DRIVERDIR]\wnbd.inf" "root\wnbd"|0|devcon failed to install the Windows Ceph RBD NBD driver'
+                  Execute="immediate" />
+    <CustomAction Id="InstallWindowsCephDriver"
+              BinaryKey="CephActions"
+              JScriptCall="runCommandAction" Execute="deferred" Return="check" Impersonate="no" />
+
+    <CustomAction Id="UninstallWindowsCephDriver_Prop" Property="UninstallWindowsCephDriver"
+                  Value='"[BINARIESDIR]\devcon.exe" remove "root\wnbd"|0|devcon failed to uninstall the Windows Ceph RBD NBD driver'
+                  Execute="immediate" />
+    <CustomAction Id="UninstallWindowsCephDriver"
+              BinaryKey="CephActions"
+              JScriptCall="runCommandAction" Execute="deferred" Return="check" Impersonate="no" />
   </Fragment>
 </Wix>
