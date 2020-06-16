@@ -7,12 +7,6 @@
 *.sln.docstates
 
 ceph-windows-installer/Binaries.wxs
-ceph-windows-installer/Symbols.wxs
-ceph-windows-installer/Binaries/*
-ceph-windows-installer/Services/*
-ceph-windows-installer/Driver/*
-ceph-windows-installer/Redist/*
-ceph-windows-installer/Symbols/*
 
 # Build results
 [Dd]ebug/
