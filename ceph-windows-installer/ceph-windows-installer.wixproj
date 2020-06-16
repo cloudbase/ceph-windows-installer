@@ -20,7 +20,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
-    <DefineConstants>BinariesPath=Binaries;SymbolsPath=Symbols;</DefineConstants>
+    <DefineConstants>BinariesPath=Binaries;</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Binaries.wxs" />
@@ -30,7 +30,6 @@
     <Compile Include="Dialogs\UserExit.wxs" />
     <Compile Include="Dialogs\WelcomeDlg.wxs" />
     <Compile Include="Product.wxs" />
-    <Compile Include="Symbols.wxs" />
     <Compile Include="UI.wxs" />
   </ItemGroup>
   <ItemGroup>
@@ -40,7 +39,6 @@
     <Folder Include="Actions" />
     <Folder Include="Driver" />
     <Folder Include="Services" />
-    <Folder Include="Symbols" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Actions\CephActions.js" />
@@ -61,8 +59,6 @@
   <Import Project="$(WixTargetsPath)" />
   <Target Name="BeforeBuild">
     <HeatDirectory DirectoryRefId="BINARIESDIR" OutputFile="Binaries.wxs" Directory="Binaries" ComponentGroupName="BinariesComponentGroup" ToolPath="$(WixToolPath)" PreprocessorVariable="var.BinariesPath" GenerateGuidsNow="true" SuppressCom="true" SuppressRegistry="true" KeepEmptyDirectories="true" SuppressRootDirectory="true">
-    </HeatDirectory>
-    <HeatDirectory DirectoryRefId="SYMBOLSDIR" OutputFile="Symbols.wxs" Directory="Symbols" ComponentGroupName="SymbolsComponentGroup" ToolPath="$(WixToolPath)" PreprocessorVariable="var.SymbolsPath" GenerateGuidsNow="true" SuppressCom="true" SuppressRegistry="true" KeepEmptyDirectories="true" SuppressRootDirectory="true">
     </HeatDirectory>
   </Target>
 </Project>

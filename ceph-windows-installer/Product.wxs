@@ -12,7 +12,6 @@
              Description="Installs the Ceph command line tools."
              ConfigurableDirectory="INSTALLDIR" Display="expand">
       <ComponentGroupRef Id="BinariesComponentGroup" />
-      <ComponentGroupRef Id="SymbolsComponentGroup" />
       <ComponentRef Id="CephEnvVars" />
     </Feature>
 
@@ -49,10 +48,6 @@
 
     <DirectoryRef Id="INSTALLDIR">
       <Directory Id="BINARIESDIR" Name="bin" />
-    </DirectoryRef>
-
-    <DirectoryRef Id="INSTALLDIR">
-      <Directory Id="SYMBOLSDIR" Name="symbols" />
     </DirectoryRef>
 
     <DirectoryRef Id="INSTALLDIR">
