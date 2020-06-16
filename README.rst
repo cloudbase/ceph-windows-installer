@@ -30,4 +30,4 @@ Build instructions
 
 Build the solution in the Visual Studio IDE or via command line:
 
-    msbuild ceph-windows-installer.sln /p:Platform=x86 /p:Configuration=Release
+    msbuild ceph-windows-installer.sln /p:Platform=x64 /p:Configuration=Release
