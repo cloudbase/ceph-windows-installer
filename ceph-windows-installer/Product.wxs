@@ -35,7 +35,7 @@
 
   <Fragment>
     <Directory Id="TARGETDIR" Name="SourceDir">
-      <Directory Id="ProgramFilesFolder">
+      <Directory Id="ProgramFiles64Folder">
         <Directory Id="INSTALLDIR" Name="Ceph" />
       </Directory>
       <Directory Id="CommonAppDataFolder">
