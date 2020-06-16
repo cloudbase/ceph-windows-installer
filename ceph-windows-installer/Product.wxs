@@ -8,15 +8,15 @@
     <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
     <MediaTemplate EmbedCab="yes" CompressionLevel="mszip" />
 
-    <Feature Id="CephCLI" Title="Windows Ceph CLI" Level="1" Absent="disallow" InstallDefault="local" TypicalDefault="install" AllowAdvertise="no"
+    <Feature Id="CephCLI" Title="Ceph CLI" Level="1" Absent="disallow" InstallDefault="local" TypicalDefault="install" AllowAdvertise="no"
              Description="Installs the Ceph command line tools."
              ConfigurableDirectory="INSTALLDIR" Display="expand">
       <ComponentGroupRef Id="BinariesComponentGroup" />
       <ComponentRef Id="CephEnvVars" />
     </Feature>
 
-    <Feature Id="WindowsCephDriver" Title="Windows Ceph RBD NBD driver" Level="1" Absent="allow" InstallDefault="local" TypicalDefault="install" AllowAdvertise="no"
-             Description="Installs the Windows Ceph RBD NBD driver." Display="expand">
+    <Feature Id="WindowsCephDriver" Title="Windows Ceph RBD driver" Level="1" Absent="allow" InstallDefault="local" TypicalDefault="install" AllowAdvertise="no"
+             Description="Installs the Windows Ceph RBD driver." Display="expand">
       <ComponentRef Id="WindowsCephDriver" />
       <ComponentRef Id="LogsDir" />
       <ComponentRef Id="AppDataDir" />
