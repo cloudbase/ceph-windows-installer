@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
      xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
-  <Product Id="{0DF60ED5-6C22-49A0-913E-77412D35C400}" Name="Ceph for Windows" Language="1033" Version="1.0.0.0"
-           Manufacturer="Ceph" UpgradeCode="da802b12-433d-4742-a7ae-783aa0c48222">
+  <Product Id="{785B1085-EF9D-4566-A522-50F400273F07}" Name="Ceph for Windows" Language="1033" Version="1.0.0.0"
+           Manufacturer="Ceph" UpgradeCode="5d5011f3-f107-4739-ad84-3d49dfebd221">
     <Package InstallerVersion="405" Compressed="yes" InstallScope="perMachine" InstallPrivileges="elevated" Platform="x64" />
 
     <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
@@ -47,7 +47,7 @@
       </Directory>
       <Directory Id="CommonAppDataFolder">
         <Directory Id="APPDATADIR" Name="Ceph">
-          <Component Id="AppDataDir" Guid="{9FAA3CD1-2234-4D6E-A974-D3D48A40773F}">
+          <Component Id="AppDataDir" Guid="{B84C1264-BE4A-409F-A1F1-60FCF3F124B4}">
             <CreateFolder />
           </Component>
         </Directory>
@@ -64,7 +64,7 @@
 
     <DirectoryRef Id="INSTALLDIR">
       <Directory Id="LOGSDIR" Name="logs">
-        <Component Id="LogsDir" Guid="{CA78C399-6E2C-4D39-88FB-1F58AC9DF8AC}">
+        <Component Id="LogsDir" Guid="{063BBB0F-A03E-4D55-B200-A7F98BBF3575}">
           <CreateFolder />
         </Component>
       </Directory>
@@ -77,7 +77,7 @@
 
   <Fragment>
     <DirectoryRef Id="TARGETDIR">
-      <Component Id="CephEnvVars" Guid="{4FCCA9D3-77BE-4283-815E-E3E63D4BF763}">
+      <Component Id="CephEnvVars" Guid="{88593F1A-D60D-4785-852B-6314CDD09DAB}">
         <Environment Id="PATH" Name="PATH" Value="[BINARIESDIR]" Permanent="no" Part="last" Action="set" System="yes" />
       </Component>
     </DirectoryRef>
@@ -85,7 +85,7 @@
 
   <Fragment>
     <DirectoryRef Id="DRIVERDIR">
-      <Component Id='WindowsCephDriver' Guid='{7A1E2446-8196-4738-8362-5CFD55896A7A}'>
+      <Component Id='WindowsCephDriver' Guid='{6129EA53-CEB3-4FC7-AAAF-E87EB7C37315}'>
         <File Id='wnbd.sys' Name='wnbd.sys' DiskId='1' Source='Driver\wnbd.sys' Checksum='yes' KeyPath='yes' />
         <File Id='wnbd.inf' Name='wnbd.inf' DiskId='1' Source='Driver\wnbd.inf' Checksum='yes' />
         <File Id='wnbd.cat' Name='wnbd.cat' DiskId='1' Source='Driver\wnbd.cat' Checksum='yes' />
