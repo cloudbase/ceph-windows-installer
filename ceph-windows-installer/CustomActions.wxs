@@ -2,8 +2,5 @@
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
   <Fragment>
     <Binary Id="CephActions" SourceFile="Actions\CephActions.js" />
-    <CustomAction Id="ChangeCephService"
-              BinaryKey="CephActions"
-              JScriptCall="changeServiceAction" Execute="deferred" Return="check" Impersonate="no" />
   </Fragment>
 </Wix>

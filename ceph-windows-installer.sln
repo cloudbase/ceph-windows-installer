@@ -7,11 +7,11 @@ Project("{930C7802-8A8C-48F9-8165-68863BCCD9EE}") = "ceph-windows-installer", "c
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Release|x86 = Release|x86
+		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{259905A2-7434-4190-8A33-8FBA67171DD7}.Release|x86.ActiveCfg = Release|x86
-		{259905A2-7434-4190-8A33-8FBA67171DD7}.Release|x86.Build.0 = Release|x86
+		{259905A2-7434-4190-8A33-8FBA67171DD7}.Release|x64.ActiveCfg = Release|x64
+		{259905A2-7434-4190-8A33-8FBA67171DD7}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

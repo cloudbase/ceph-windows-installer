@@ -2,7 +2,7 @@
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <Platform Condition=" '$(Platform)' == '' ">x64</Platform>
     <ProductVersion>3.8</ProductVersion>
     <ProjectGuid>{259905a2-7434-4190-8a33-8fba67171dd7}</ProjectGuid>
     <SchemaVersion>2.0</SchemaVersion>
@@ -12,12 +12,12 @@
     <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' ">$(MSBuildExtensionsPath)\Microsoft\WiX\v3.x\Wix.targets</WixTargetsPath>
 	<DefineSolutionProperties>false</DefineSolutionProperties>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
     <DefineConstants>Debug</DefineConstants>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
     <DefineConstants>BinariesPath=Binaries;SymbolsPath=Symbols;</DefineConstants>
@@ -65,12 +65,4 @@
     <HeatDirectory DirectoryRefId="SYMBOLSDIR" OutputFile="Symbols.wxs" Directory="Symbols" ComponentGroupName="SymbolsComponentGroup" ToolPath="$(WixToolPath)" PreprocessorVariable="var.SymbolsPath" GenerateGuidsNow="true" SuppressCom="true" SuppressRegistry="true" KeepEmptyDirectories="true" SuppressRootDirectory="true">
     </HeatDirectory>
   </Target>
-  <!--
-	To modify your build process, add your task inside one of the targets below and uncomment it.
-	Other similar extension points exist, see Wix.targets.
-	<Target Name="BeforeBuild">
-	</Target>
-	<Target Name="AfterBuild">
-	</Target>
-	-->
 </Project>

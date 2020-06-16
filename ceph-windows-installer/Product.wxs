@@ -14,10 +14,6 @@
       <ComponentGroupRef Id="BinariesComponentGroup" />
       <ComponentGroupRef Id="SymbolsComponentGroup" />
       <ComponentRef Id="CephEnvVars" />
-
-      <Feature Id="VC120Redist" Title="Visual C++ 12.0 Runtime" AllowAdvertise="no" Display="hidden" Level="1"
-               Absent="disallow" InstallDefault="followParent" TypicalDefault="install">
-      </Feature>
     </Feature>
 
     <Feature Id="CephDriver" Title="Windows Ceph RBD NBD driver" Level="1" Absent="allow" InstallDefault="local" TypicalDefault="install" AllowAdvertise="no"
@@ -34,7 +30,6 @@
     <WixVariable Id="WixUILicenseRtf" Value="License.rtf" />
 
     <InstallExecuteSequence>
-      <Custom Action="ChangeCephService" Before="InstallFinalize"><![CDATA[REMOVE <> "ALL"]]></Custom>
     </InstallExecuteSequence>
   </Product>
 
