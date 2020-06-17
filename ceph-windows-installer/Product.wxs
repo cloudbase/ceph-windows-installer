@@ -19,13 +19,13 @@
              Description="Installs the Windows Ceph RBD driver." Display="expand">
       <ComponentRef Id="WindowsCephDriver" />
       <ComponentRef Id="AppDataDir" />
-      <ComponentRef Id="CephRbdLogDir" />
-      <ComponentRef Id="CephRbdConfDir" />
       <ComponentRef Id="CephRbdService" />
     </Feature>
 
     <UIRef Id="MyWixUI_FeatureTree" />
     <UIRef Id="WixUI_ErrorProgressText" />
+
+    <Property Id="WIXUI_EXITDIALOGOPTIONALTEXT" Value="Thank you for installing Ceph for Windows.&#xD;&#xA;&#xD;&#xA;For ceph-rbd service to work, create C:\ProgramData\ceph.conf and manually start the service." />
 
     <WixVariable Id="WixUIBannerBmp" Value="images\bannrbmp.bmp" />
     <WixVariable Id="WixUIDialogBmp" Value="images\dlgbmp.bmp" />
@@ -71,18 +71,6 @@
       <Directory Id="DRIVERDIR" Name="driver" />
     </DirectoryRef>
 
-    <DirectoryRef Id="INSTALLDIR">
-      <Directory Id="CephRbdLogDir" Name="logs">
-        <Component Id="CephRbdLogDir" Guid="{063BBB0F-A03E-4D55-B200-A7F98BBF3575}">
-          <CreateFolder />
-        </Component>
-      </Directory>
-    </DirectoryRef>
-
-    <DirectoryRef Id="INSTALLDIR">
-      <Directory Id="CephRbdConfDir" Name="conf" />
-    </DirectoryRef>
-
   </Fragment>
 
   <Fragment>
@@ -93,10 +81,6 @@
     </DirectoryRef>
   </Fragment>
   <Fragment>
-    <Component Id="CephRbdConfDir" Directory="CephRbdConfDir" Guid="{6DB7BC99-FF12-41E2-9EAA-A98A579BE27A}">
-      <File Id="ceph.conf" Source="Service\ceph.conf" Checksum="yes" KeyPath="yes" />
-      <File Id="ceph.client.admin.keyring" Source="Service\ceph.client.admin.keyring" Checksum="yes" />
-    </Component>
 
     <Component Id="CephRbdService" Directory="SERVICEDIR" Guid="{280201D5-35E7-45D6-83B9-293F1A4F7F0D}">
       <File Id="RbdNbd.exe" Source="Service\rbd-nbd.exe" KeyPath="yes" Checksum="yes" />
