@@ -18,8 +18,10 @@
     <Feature Id="WindowsCephDriver" Title="Windows Ceph RBD driver" Level="1" Absent="allow" InstallDefault="local" TypicalDefault="install" AllowAdvertise="no"
              Description="Installs the Windows Ceph RBD driver." Display="expand">
       <ComponentRef Id="WindowsCephDriver" />
-      <ComponentRef Id="LogsDir" />
       <ComponentRef Id="AppDataDir" />
+      <ComponentRef Id="CephRbdLogDir" />
+      <ComponentRef Id="CephRbdConfDir" />
+      <ComponentRef Id="CephRbdService" />
     </Feature>
 
     <UIRef Id="MyWixUI_FeatureTree" />
@@ -59,20 +61,25 @@
     </DirectoryRef>
 
     <DirectoryRef Id="INSTALLDIR">
+      <Directory Id="SERVICEDIR" Name="service" />
+    </DirectoryRef>
+
+    <DirectoryRef Id="INSTALLDIR">
       <Directory Id="DRIVERDIR" Name="driver" />
     </DirectoryRef>
 
     <DirectoryRef Id="INSTALLDIR">
-      <Directory Id="LOGSDIR" Name="logs">
-        <Component Id="LogsDir" Guid="{063BBB0F-A03E-4D55-B200-A7F98BBF3575}">
+      <Directory Id="CephRbdLogDir" Name="logs">
+        <Component Id="CephRbdLogDir" Guid="{063BBB0F-A03E-4D55-B200-A7F98BBF3575}">
           <CreateFolder />
         </Component>
       </Directory>
     </DirectoryRef>
 
     <DirectoryRef Id="INSTALLDIR">
-      <Directory Id="CONFDIR" Name="conf" />
+      <Directory Id="CephRbdConfDir" Name="conf" />
     </DirectoryRef>
+
   </Fragment>
 
   <Fragment>
@@ -81,6 +88,40 @@
         <Environment Id="PATH" Name="PATH" Value="[BINARIESDIR]" Permanent="no" Part="last" Action="set" System="yes" />
       </Component>
     </DirectoryRef>
+  </Fragment>
+  <Fragment>
+    <Component Id="CephRbdConfDir" Directory="CephRbdConfDir" Guid="{6DB7BC99-FF12-41E2-9EAA-A98A579BE27A}">
+      <File Id="ceph.conf" Source="Service\ceph.conf" Checksum="yes" KeyPath="yes" />
+    </Component>
+
+    <Component Id="CephRbdService" Directory="SERVICEDIR" Guid="{280201D5-35E7-45D6-83B9-293F1A4F7F0D}">
+      <File Id="RbdNbd.exe" Source="Service\rbd-nbd.exe" KeyPath="yes" Checksum="yes" />
+      <ServiceInstall
+                Arguments='service'
+                Id="CephRbdServiceInstaller"
+                Type="ownProcess"
+                Vital="yes"
+                Name="ceph-rbd"
+                DisplayName="Ceph RBD Mapping Service"
+                Description="Ceph RBD Mapping Service"
+                Start="auto"
+                Account="LocalSystem"
+                ErrorControl="ignore"
+                Interactive="no">
+      </ServiceInstall>
+      <ServiceControl
+        Id="CephRbdServiceInstallerStartService"
+        Stop="both"
+        Remove="uninstall"
+        Name="ceph-rbd"
+        Wait="yes" />
+      <util:ServiceConfig
+        ServiceName="ceph-rbd"
+        FirstFailureActionType="restart"
+        SecondFailureActionType="restart"
+        ThirdFailureActionType="restart"
+        RestartServiceDelayInSeconds="1" />
+    </Component>
   </Fragment>
 
   <Fragment>
