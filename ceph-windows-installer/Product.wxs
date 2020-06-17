@@ -36,7 +36,10 @@
       <Custom Action="InstallWindowsCephDriver" Before="InstallFinalize" ><![CDATA[REMOVE <> "ALL" AND (&WindowsCephDriver = 3)]]></Custom>
 
       <Custom Action="UninstallWindowsCephDriver_Prop" After="CostFinalize"><![CDATA[(&WindowsCephDriver=2) AND (!WindowsCephDriver=3)]]></Custom>
-      <Custom Action="UninstallWindowsCephDriver" Before="RemoveFiles" ><![CDATA[(&WindowsCephDriver=2) AND (!WindowsCephDriver=3)]]></Custom>
+      <Custom Action="UninstallWindowsCephDriver" Before="UninstallWindowsCephDriverPnputil" ><![CDATA[(&WindowsCephDriver=2) AND (!WindowsCephDriver=3)]]></Custom>
+
+      <Custom Action="UninstallWindowsCephDriverPnputil_Prop" After="CostFinalize"><![CDATA[(&WindowsCephDriver=2) AND (!WindowsCephDriver=3)]]></Custom>
+      <Custom Action="UninstallWindowsCephDriverPnputil" Before="RemoveFiles" ><![CDATA[(&WindowsCephDriver=2) AND (!WindowsCephDriver=3)]]></Custom>
     </InstallExecuteSequence>
 
     <SetProperty Id="ARPINSTALLLOCATION" Value="[INSTALLDIR]" After="CostFinalize" />
