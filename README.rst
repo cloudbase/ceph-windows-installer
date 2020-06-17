@@ -18,12 +18,12 @@ WiX Toolset 3.11
 Download and install from:
 http://wixtoolset.org/releases/v3.11/stable
 
-Copy the drivers built using the instructions from https://github.com/cloudbase/wnbd#how-to-build to the Driver folder.
+Copy the drivers built using the instructions from https://github.com/cloudbase/wnbd#how-to-build to the ceph-windows-installer/Driver folder.
 
 Copy the binaries built using the instructions from https://github.com/petrutlucian94/ceph/blob/windows.12/README.windows.rst#building
-to the Binaries folder.
+to the ceph-windows-installer/Binaries folder.
 
-Copy devcon.exe from https://cloudbase.it/downloads/devcon.exe to the Binaries folder.
+Copy devcon.exe from https://cloudbase.it/downloads/devcon.exe to the ceph-windows-installer/Binaries folder.
 
 Build instructions
 ------------------
