@@ -16,5 +16,12 @@
     <CustomAction Id="UninstallWindowsCephDriver"
               BinaryKey="CephActions"
               JScriptCall="runCommandAction" Execute="deferred" Return="check" Impersonate="no" />
+
+    <CustomAction Id="UninstallWindowsCephDriverPnputil_Prop" Property="UninstallWindowsCephDriverPnputil"
+                  Value='wnbd|0|pnputil failed to uninstall the Windows Ceph RBD NBD driver'
+                  Execute="immediate" />
+    <CustomAction Id="UninstallWindowsCephDriverPnputil"
+              BinaryKey="CephActions"
+              JScriptCall="removeDriverWithPnputil" Execute="deferred" Return="check" Impersonate="no" />
   </Fragment>
 </Wix>

@@ -256,3 +256,32 @@ function changeServiceAction() {
         return MsiActionStatus.Abort;
     }
 }
+
+function removeDriverWithPnputil() {
+    var exceptionMsg = null;
+
+    try {
+        var data = Session.Property("CustomActionData").split('|');
+        var i = 0;
+        var driverName = data[i++];
+        var expectedRetValue = data.length > i ? data[i++] : 0;
+        var exceptionMsg = data.length > i ? data[i++] : null;
+        var workingDir = data.length > i ? data[i++] : null;
+        var cmd = "powershell pnputil.exe /enum-drivers | sls -Context 7 "
+        cmd += driverName
+        cmd += " | findstr Published | Foreach-Object {pnputil /delete-driver $_.replace('Published Name:','').trim()}"
+
+        runCommand(cmd, expectedRetValue, null, 0, true, workingDir);
+        return MsiActionStatus.Ok;
+    } catch (ex) {
+        if (exceptionMsg) {
+            logMessageEx(ex.message, MsgKind.Error + Icons.Critical + Buttons.OkOnly);
+            // log also the original exception
+            logMessage(ex.message);
+        } else {
+            logException(ex);
+        }
+
+        return MsiActionStatus.Abort;
+    }
+}
