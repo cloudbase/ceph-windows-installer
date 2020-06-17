@@ -92,6 +92,7 @@
   <Fragment>
     <Component Id="CephRbdConfDir" Directory="CephRbdConfDir" Guid="{6DB7BC99-FF12-41E2-9EAA-A98A579BE27A}">
       <File Id="ceph.conf" Source="Service\ceph.conf" Checksum="yes" KeyPath="yes" />
+      <File Id="ceph.client.admin.keyring" Source="Service\ceph.client.admin.keyring" Checksum="yes" />
     </Component>
 
     <Component Id="CephRbdService" Directory="SERVICEDIR" Guid="{280201D5-35E7-45D6-83B9-293F1A4F7F0D}">
