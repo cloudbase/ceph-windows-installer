@@ -26,8 +26,8 @@ Also, copy the rbd-nbd.exe binary to the ceph-windows-installer/Service folder.
 
 For the ceph-rbd service to work, additional steps are required after installation:
 
-  * Create C:\\ProgramData folder. Inside, create a ceph.conf file with the required configuration (you can copy it from an osd server). An example will be found in the conf folder.
-  * Create C:\\etc\\ceph folder. Inside, create a ceph.client.admin.keyring file with the required configuration (you can copy it from an osd server). An example will be found in the conf folder.
+  * Create C:\\ProgramData folder. Inside, create a ceph.conf file with the required configuration (you can copy it from an osd server).
+  * Create C:\\etc\\ceph folder. Inside, create a ceph.client.admin.keyring file with the required configuration (you can copy it from an osd server).
   * Manually start the service
 
 Copy devcon.exe from https://cloudbase.it/downloads/devcon.exe to the ceph-windows-installer/Binaries folder.
