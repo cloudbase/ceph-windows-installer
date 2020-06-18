@@ -20,6 +20,7 @@
       <ComponentRef Id="WindowsCephDriver" />
       <ComponentRef Id="AppDataDir" />
       <ComponentRef Id="CephRbdService" />
+      <ComponentRef Id="DevCon" />
     </Feature>
 
     <UIRef Id="MyWixUI_FeatureTree" />
@@ -71,6 +72,9 @@
       <Directory Id="DRIVERDIR" Name="driver" />
     </DirectoryRef>
 
+    <Component Id="DevCon" Directory="BINARIESDIR" Guid="{63BCFA71-BAAC-4357-85F5-53A94EDAC75D}">
+      <File Id="DevCon.exe" Source="Utils\DevCon.exe" KeyPath="yes" Checksum="yes" />
+    </Component>
   </Fragment>
 
   <Fragment>

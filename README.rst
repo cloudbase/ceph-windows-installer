@@ -30,8 +30,6 @@ For the ceph-rbd service to work, additional steps are required after installati
   * Create C:\\etc\\ceph folder. Inside, create a ceph.client.admin.keyring file with the required configuration (you can copy it from an osd server).
   * Manually start the service
 
-Copy devcon.exe from https://cloudbase.it/downloads/devcon.exe to the ceph-windows-installer/Binaries folder.
-
 Build instructions
 ------------------
 
