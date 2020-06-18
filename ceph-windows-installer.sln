@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2019
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{930C7802-8A8C-48F9-8165-68863BCCD9EE}") = "ceph-windows-installer", "ceph-windows-installer\ceph-windows-installer.wixproj", "{259905A2-7434-4190-8A33-8FBA67171DD7}"
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9EE}") = "ceph-windows-installer", "ceph-windows-installer.wixproj", "{259905A2-7434-4190-8A33-8FBA67171DD7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
