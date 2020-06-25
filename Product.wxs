@@ -65,10 +65,6 @@
     </DirectoryRef>
 
     <DirectoryRef Id="INSTALLDIR">
-      <Directory Id="SERVICEDIR" Name="service" />
-    </DirectoryRef>
-
-    <DirectoryRef Id="INSTALLDIR">
       <Directory Id="DRIVERDIR" Name="driver" />
     </DirectoryRef>
 
@@ -86,8 +82,8 @@
   </Fragment>
   <Fragment>
 
-    <Component Id="CephRbdService" Directory="SERVICEDIR" Guid="{280201D5-35E7-45D6-83B9-293F1A4F7F0D}">
-      <File Id="RbdNbd.exe" Source="Service\rbd-nbd.exe" KeyPath="yes" Checksum="yes" />
+    <Component Id="CephRbdService" Directory="BINARIESDIR" Guid="{280201D5-35E7-45D6-83B9-293F1A4F7F0D}">
+      <File Id="RbdNbd.exe" Source="Binaries\rbd-nbd.exe" KeyPath="yes" Checksum="yes" />
       <ServiceInstall
                 Arguments='service'
                 Id="CephRbdServiceInstaller"

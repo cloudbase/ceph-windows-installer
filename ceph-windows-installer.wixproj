@@ -10,7 +10,7 @@
     <OutputType>Package</OutputType>
     <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' AND '$(MSBuildExtensionsPath32)' != '' ">$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets</WixTargetsPath>
     <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' ">$(MSBuildExtensionsPath)\Microsoft\WiX\v3.x\Wix.targets</WixTargetsPath>
-	<DefineSolutionProperties>false</DefineSolutionProperties>
+    <DefineSolutionProperties>false</DefineSolutionProperties>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
     <OutputPath>bin\$(Configuration)\</OutputPath>
@@ -38,7 +38,6 @@
     <Folder Include="images\" />
     <Folder Include="Actions" />
     <Folder Include="Driver" />
-    <Folder Include="Services" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Actions\CephActions.js" />
@@ -58,7 +57,7 @@
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
   <Target Name="BeforeBuild">
-    <HeatDirectory DirectoryRefId="BINARIESDIR" OutputFile="Binaries.wxs" Directory="Binaries" ComponentGroupName="BinariesComponentGroup" ToolPath="$(WixToolPath)" PreprocessorVariable="var.BinariesPath" GenerateGuidsNow="true" SuppressCom="true" SuppressRegistry="true" KeepEmptyDirectories="true" SuppressRootDirectory="true">
+    <HeatDirectory DirectoryRefId="BINARIESDIR" Transforms="Filter.xsl" OutputFile="Binaries.wxs" Directory="Binaries" ComponentGroupName="BinariesComponentGroup" ToolPath="$(WixToolPath)" PreprocessorVariable="var.BinariesPath" GenerateGuidsNow="true" SuppressCom="true" SuppressRegistry="true" KeepEmptyDirectories="true" SuppressRootDirectory="true">
     </HeatDirectory>
   </Target>
 </Project>
