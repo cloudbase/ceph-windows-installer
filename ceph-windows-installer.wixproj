@@ -41,9 +41,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Actions\CephActions.js" />
+    <Content Include="Filter.xsl" />
     <Content Include="images\bannrbmp.bmp" />
     <Content Include="images\dlgbmp.bmp" />
+    <Content Include="LICENSE" />
     <Content Include="License.rtf" />
+    <Content Include="README.rst" />
   </ItemGroup>
   <ItemGroup>
     <WixExtension Include="WixUtilExtension">
