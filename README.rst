@@ -36,3 +36,10 @@ Build instructions
 Build the solution in the Visual Studio IDE or via command line:
 
     msbuild ceph-windows-installer.sln /p:Platform=x64 /p:Configuration=Release
+
+Automated installation 
+----------------------
+
+For automated deployments, this package can be installed with the standard MSI silent mode, for example:
+
+    msiexec.exe /i Ceph.msi /l*v log.txt /qn
