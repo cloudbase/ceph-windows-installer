@@ -109,6 +109,7 @@
       </ServiceInstall>
       <ServiceControl
         Id="CephRbdServiceInstallerStartService"
+        Start="install"
         Stop="both"
         Remove="uninstall"
         Name="ceph-rbd"
