@@ -19,16 +19,16 @@ Download and install from:
 http://wixtoolset.org/releases/v3.11/stable
 
 Copy the drivers built using the instructions from https://github.com/cloudbase/wnbd#how-to-build to the ceph-windows-installer/Driver folder.
+Copy also the *.pdb files generated when building the driver in the ceph-windows-installer/Symbols folder.
 
 Copy the binaries built using the instructions from https://github.com/petrutlucian94/ceph/blob/windows.12/README.windows.rst#building
 to the ceph-windows-installer/Binaries folder.
-Also, copy the rbd-nbd.exe binary to the ceph-windows-installer/Service folder.
 
 For the ceph-rbd service to work, additional steps are required after installation:
 
   * Create C:\\ProgramData folder. Inside, create a ceph.conf file with the required configuration (you can copy it from an osd server).
-  * Create C:\\etc\\ceph folder. Inside, create a ceph.client.admin.keyring file with the required configuration (you can copy it from an osd server).
-  * Manually start the service
+  * Create a ceph.client.admin.keyring file with the required configuration (you can copy it from an osd server).
+  * Restart the service: :code:`Restart-Service ceph-rbd`
 
 Build instructions
 ------------------
