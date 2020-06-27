@@ -23,5 +23,12 @@
     <CustomAction Id="UninstallWindowsCephDriverPnputil"
               BinaryKey="CephActions"
               JScriptCall="removeDriverWithPnputil" Execute="deferred" Return="check" Impersonate="no" />
+
+    <CustomAction Id="StartWindowsCephDriver_Prop" Property="StartWindowsCephDriver"
+                      Value='ceph-rbd||Start'
+                      Execute="immediate" />
+    <CustomAction Id="StartWindowsCephDriver"
+                  BinaryKey="CephActions"
+                  JScriptCall="changeServiceAction" Execute="deferred" Return="check" Impersonate="no" />
   </Fragment>
 </Wix>
