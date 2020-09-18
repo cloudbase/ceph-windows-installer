@@ -18,11 +18,13 @@ WiX Toolset 3.11
 Download and install from:
 http://wixtoolset.org/releases/v3.11/stable
 
-Copy the drivers built using the instructions from https://github.com/cloudbase/wnbd#how-to-build to the ceph-windows-installer/Driver folder.
-Copy also the *.pdb files generated when building the driver in the ceph-windows-installer/Symbols folder.
+Copy the driver files built using the instructions from https://github.com/cloudbase/wnbd#how-to-build to the ``ceph-windows-installer/Driver`` folder.
+Copy also the ``*.pdb`` files generated when building the driver in the ``ceph-windows-installer/Symbols`` folder. Optionally Ceph
+symbols might be included as well. ``wnbd-client.exe`` as well as ``libwnbd.dll`` must be copied to the ``ceph-windows-installer/Binaries``
+folder.
 
 Copy the binaries built using the instructions from https://github.com/petrutlucian94/ceph/blob/windows.12/README.windows.rst#building
-to the ceph-windows-installer/Binaries folder.
+to the ``ceph-windows-installer/Binaries`` folder.
 
 For the ceph-rbd service to work, additional steps are required after installation:
 
