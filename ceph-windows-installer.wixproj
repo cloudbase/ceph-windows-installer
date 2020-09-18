@@ -20,10 +20,11 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
-    <DefineConstants>BinariesPath=Binaries;</DefineConstants>
+    <DefineConstants>BinariesPath=Binaries;SymbolsPath=Symbols;</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Binaries.wxs" />
+    <Compile Include="Symbols.wxs" />
     <Compile Include="CustomActions.wxs" />
     <Compile Include="Dialogs\ExitDialog.wxs" />
     <Compile Include="Dialogs\MaintenanceWelcomeDlg.wxs" />
@@ -41,7 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Actions\CephActions.js" />
-    <Content Include="Filter.xsl" />
+    <Content Include="BinariesFilter.xsl" />
     <Content Include="images\bannrbmp.bmp" />
     <Content Include="images\dlgbmp.bmp" />
     <Content Include="LICENSE" />
@@ -60,7 +61,9 @@
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
   <Target Name="BeforeBuild">
-    <HeatDirectory DirectoryRefId="BINARIESDIR" Transforms="Filter.xsl" OutputFile="Binaries.wxs" Directory="Binaries" ComponentGroupName="BinariesComponentGroup" ToolPath="$(WixToolPath)" PreprocessorVariable="var.BinariesPath" GenerateGuidsNow="true" SuppressCom="true" SuppressRegistry="true" KeepEmptyDirectories="true" SuppressRootDirectory="true">
+    <HeatDirectory DirectoryRefId="BINARIESDIR"  Transforms="BinariesFilter.xsl" OutputFile="Binaries.wxs" Directory="Binaries" ComponentGroupName="BinariesComponentGroup" ToolPath="$(WixToolPath)" PreprocessorVariable="var.BinariesPath" GenerateGuidsNow="true" SuppressCom="true" SuppressRegistry="true" KeepEmptyDirectories="true" SuppressRootDirectory="true">
+    </HeatDirectory>
+    <HeatDirectory DirectoryRefId="SYMBOLSDIR" OutputFile="Symbols.wxs" Directory="Symbols" ComponentGroupName="SymbolsComponentGroup" ToolPath="$(WixToolPath)" PreprocessorVariable="var.SymbolsPath" GenerateGuidsNow="true" SuppressCom="true" SuppressRegistry="true" KeepEmptyDirectories="true" SuppressRootDirectory="true">
     </HeatDirectory>
   </Target>
 </Project>
