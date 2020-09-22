@@ -12,6 +12,7 @@ Symbols.wxs
 Binaries/
 Symbols/
 Driver/
+Dependencies/
 
 # Build results
 [Dd]ebug/
