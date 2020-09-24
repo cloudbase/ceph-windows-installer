@@ -24,6 +24,17 @@
       <!-- TODO: Consider using a separate feature for the symbols. This folder might
            include both WNBD and Ceph symbols. -->
       <ComponentGroupRef Id="SymbolsComponentGroup" />
+      <!-- Force delete mappings on uninstall-->
+      <Component Id="CleanRbdWnbdMappings"
+                 Directory="TARGETDIR"
+                 Guid="{280201D5-35E7-45D6-83B9-577EA1597BB5}"
+                 KeyPath="yes">
+        <RegistryKey Id="CleanupRegistry"
+                     Root="HKLM"
+                     Key="SYSTEM\CurrentControlSet\Services\rbd-wnbd"
+                     ForceDeleteOnUninstall="yes"
+                     Action="createAndRemoveOnUninstall"/>
+      </Component>
       <Feature Id="VC142Redist" Title="Visual C++ 19 Runtime" AllowAdvertise="no"
                Display="hidden" Level="1" Absent="disallow" InstallDefault="followParent"
                TypicalDefault="install">
