@@ -25,13 +25,18 @@
            include both WNBD and Ceph symbols. -->
       <ComponentGroupRef Id="SymbolsComponentGroup" />
       <!-- Force delete mappings on uninstall-->
-      <Component Id="CleanRbdWnbdMappings"
+      <Component Id="CleanRegistry"
                  Directory="TARGETDIR"
                  Guid="{280201D5-35E7-45D6-83B9-577EA1597BB5}"
                  KeyPath="yes">
-        <RegistryKey Id="CleanupRegistry"
+        <RegistryKey Id="CleanupRegistryRbd"
                      Root="HKLM"
                      Key="SYSTEM\CurrentControlSet\Services\rbd-wnbd"
+                     ForceDeleteOnUninstall="yes"
+                     Action="createAndRemoveOnUninstall"/>
+        <RegistryKey Id="CleanupRegistryWnbd"
+                     Root="HKLM"
+                     Key="SYSTEM\CurrentControlSet\Services\wnbd"
                      ForceDeleteOnUninstall="yes"
                      Action="createAndRemoveOnUninstall"/>
       </Component>
