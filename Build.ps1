@@ -1,22 +1,47 @@
 [CmdletBinding(DefaultParameterSetName='None')]
 Param(
+    # Builds Ceph using WSL
+    [Parameter(ParameterSetName="CephWSL", Mandatory=$true)]
+    [Parameter(ParameterSetName="CephWSLSign", Mandatory=$true)]
+    [switch]$UseWSL = $false,
+    [Parameter(ParameterSetName="CephWSL")]
+    [Parameter(ParameterSetName="CephWSLSign")]
+    [ValidateNotNullOrEmpty()]
+    [string]$WSLDistro = "Ubuntu-20.04",
+    [Parameter(ParameterSetName="CephWSL")]
+    [Parameter(ParameterSetName="CephWSLSign")]
+    [ValidateNotNullOrEmpty()]
+    [string]$CephRepoUrl = "https://github.com/petrutlucian94/ceph",
+    [Parameter(ParameterSetName="CephWSL")]
+    [Parameter(ParameterSetName="CephWSLSign")]
+    [ValidateNotNullOrEmpty()]
+    [string]$CephRepoBranch = "windows.12",
+
     # Archive containing the Ceph Windows binaries, will be fetched using scp.
     # Can be a local path, a UNC path or a remote scp path.
-    [Parameter(Mandatory=$true)]
+    [Parameter(ParameterSetName="CephZipPath", Mandatory=$true)]
+    [Parameter(ParameterSetName="CephZipPathSign", Mandatory=$true)]
     [ValidateNotNullOrEmpty()]
     [string]$CephZipPath,
 
     # The thumbprint of the X509 certificate used for signing the WNBD driver
     # and the MSI installer
-    [Parameter(ParameterSetName="Sign", Mandatory=$true)]
+    [Parameter(ParameterSetName="CephZipPathSign", Mandatory=$true)]
+    [Parameter(ParameterSetName="CephWSLSign", Mandatory=$true)]
     [ValidateNotNullOrEmpty()]
     [string]$SignX509Thumbprint,
-    [Parameter(ParameterSetName="Sign", Mandatory=$true)]
+    [Parameter(ParameterSetName="CephZipPathSign", Mandatory=$true)]
+    [Parameter(ParameterSetName="CephWSLSign", Mandatory=$true)]
     [ValidateNotNullOrEmpty()]
     [string]$SignTimestampUrl,
-    [Parameter(ParameterSetName="Sign", Mandatory=$true)]
+    [Parameter(ParameterSetName="CephZipPathSign", Mandatory=$true)]
+    [Parameter(ParameterSetName="CephWSLSign", Mandatory=$true)]
     [ValidateNotNullOrEmpty()]
-    [string]$SignCrossCertPath
+    [string]$SignCrossCertPath,
+
+    # Don't remove the dependencies build directory if it exists.
+    # This can be useful during development
+    [switch]$RetainDependenciesBuildDir = $false
 )
 
 $ErrorActionPreference = "Stop"
@@ -42,11 +67,12 @@ function Sign($x509thumbprint, $crossCertPath, $timestampUrl, $path) {
 }
 
 function BuildWnbd() {
-
     pushd $depsBuildDir
-    & git.exe clone https://github.com/cloudbase/wnbd
-    if($LASTEXITCODE) {
-        throw "git failed"
+    if (!(Test-Path wnbd)) {
+        & git.exe clone https://github.com/cloudbase/wnbd
+        if($LASTEXITCODE) {
+            throw "git failed"
+        }
     }
     cd wnbd
 
@@ -66,30 +92,54 @@ function BuildWnbd() {
     popd
 }
 
-function GetCephBinaries() {
-    pushd $depsBuildDir
+function CopyCephBinaries($sourcePath, $targetPath) {
+    $targetFullPath = (Get-Item $targetPath).FullName
 
-    & scp.exe $CephZipPath ceph.zip
-    if($LASTEXITCODE) {
-        throw "scp failed"
-    }
-
-    if (Test-Path ceph) {
-        rm -Recurse -Force ceph\
-    }
-
-    Expand-Archive ceph.zip -DestinationPath .
-    rm ceph.zip
-
-    cd ceph
+    pushd $sourcePath
     copy -Path *.dll,`
     ceph-conf.exe,`
     rados.exe,`
     rbd.exe,`
     rbd-wnbd.exe,`
     ceph-dokan.exe `
-    -Destination ..\..\Binaries\
+    -Destination $targetFullPath
+    popd
+}
 
+function GetCephBinaries() {
+    pushd $depsBuildDir
+
+    if (!(Test-Path cephzip)) {
+        & scp.exe $CephZipPath ceph.zip
+        if($LASTEXITCODE) {
+            throw "scp failed"
+        }
+
+        Expand-Archive ceph.zip -DestinationPath cephzip
+        rm ceph.zip
+    }
+
+    CopyCephBinaries "cephzip\ceph" "..\Binaries\"
+    popd
+}
+
+function BuildCephWSL() {
+    pushd $depsBuildDir
+
+    if (!(Test-Path ceph)) {
+        & git.exe -c core.symlinks=true clone --recurse-submodules $CephRepoUrl $CephRepoBranch
+        if($LASTEXITCODE) {
+            throw "git failed"
+        }
+    }
+    cd ceph
+
+    & wsl.exe -d $WSLDistro -u root -e bash -c "BUILD_ZIP=1 STRIP_ZIPPED=1 SKIP_TESTS=1 SKIP_BINDIR_CLEAN=1 ./win32_build.sh"
+    if($LASTEXITCODE) {
+        throw "Ceph WSL build failed"
+    }
+
+    CopyCephBinaries "build\bin_stripped" "..\..\Binaries\"
     popd
 }
 
@@ -97,15 +147,22 @@ $depsBuildDir = "Dependencies"
 
 SetVCVars
 
-if (Test-Path $depsBuildDir) {
+if ((Test-Path $depsBuildDir) -and !$RetainDependenciesBuildDir) {
+    Write-Output "Removing dependencies build dir"
     rm -Recurse -Force $depsBuildDir\
 }
-mkdir $depsBuildDir
+
+mkdir -Force $depsBuildDir
 
 del Driver\*
 del Binaries\*
 
-GetCephBinaries
+if($UseWSL) {
+    BuildCephWSL
+} else {
+    GetCephBinaries
+}
+
 BuildWnbd
 
 $configuration = "Release"
@@ -119,4 +176,4 @@ if($SignX509Thumbprint) {
 }
 
 Write-Output ""
-Write-Output "Success! MSI location: $((get-childitem .\bin\$configuration\Ceph.msi).FullName)"
+Write-Output "Success! MSI location: $((Get-Item .\bin\$configuration\Ceph.msi).FullName)"
