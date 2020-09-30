@@ -40,6 +40,31 @@ Build the solution in the Visual Studio IDE or via command line:
 
     msbuild ceph-windows-installer.sln /p:Platform=x64 /p:Configuration=Release
 
+A complete build script that handles the Ceph and WNBD dependencies, plus the digital signature of both driver and MSI is also included.
+
+To perform a full build with digital signature, using WSL for building Ceph:
+::
+
+    .\Build.ps1 -UseWSL`
+    -SignX509Thumbprint 1234...`
+    -SignCrossCertPath path\to\the\cross\cert.cer`
+    -SignTimestampUrl http://timestampurl
+
+To perform a full build with digital signature, copying the Ceph binaries from a separate location (can be a SSH, local or UNC path):
+::
+
+    .\Build.ps1 -CephZipPath user@host:ceph/build/ceph.zip`
+    -SignX509Thumbprint 1234...`
+    -SignCrossCertPath path\to\the\cross\cert.cer`
+    -SignTimestampUrl http://timestampurl
+
+By default, the dependencies build directory is removed before every build. To retain it, please use the ``-RetainDependenciesBuildDir`` argument.
+
+To get a full list of the available command line arguments:
+::
+
+    help .\Build.ps1
+
 Automated installation
 ----------------------
 
