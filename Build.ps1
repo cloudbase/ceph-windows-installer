@@ -154,8 +154,12 @@ if ((Test-Path $depsBuildDir) -and !$RetainDependenciesBuildDir) {
 
 mkdir -Force $depsBuildDir
 
-del Driver\*
-del Binaries\*
+$RequiredDirs = "Driver", "Binaries", "Symbols"
+foreach ($dir in $RequiredDirs)
+{
+    mkdir -Force $dir
+    del $dir\*
+}
 
 if($UseWSL) {
     BuildCephWSL
