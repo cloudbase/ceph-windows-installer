@@ -153,7 +153,7 @@ SetVCVars
 
 if ((Test-Path $depsBuildDir) -and !$RetainDependenciesBuildDir) {
     Write-Output "Removing dependencies build dir"
-    rm -Recurse -Force $depsBuildDir\
+    cmd /c rmdir /s /q $depsBuildDir\
 }
 
 mkdir -Force $depsBuildDir
