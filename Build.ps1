@@ -15,7 +15,7 @@ Param(
     [Parameter(ParameterSetName="CephWSL")]
     [Parameter(ParameterSetName="CephWSLSign")]
     [ValidateNotNullOrEmpty()]
-    [string]$CephRepoBranch = "windows.12",
+    [string]$CephRepoBranch = "wnbd_dev",
 
     # Archive containing the Ceph Windows binaries, will be fetched using scp.
     # Can be a local path, a UNC path or a remote scp path.
