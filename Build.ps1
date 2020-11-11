@@ -131,7 +131,7 @@ function BuildCephWSL() {
     pushd $depsBuildDir
 
     if (!(Test-Path ceph)) {
-        & git.exe -c core.symlinks=true clone --recurse-submodules $CephRepoUrl $CephRepoBranch
+        & wsl.exe -d $WSLDistro -u root -e bash -c "git -c core.symlinks=true clone --recurse-submodules $CephRepoUrl -b $CephRepoBranch"
         if($LASTEXITCODE) {
             throw "git failed"
         }
