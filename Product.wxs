@@ -58,7 +58,10 @@
 
     <InstallExecuteSequence>
       <Custom Action="InstallWindowsCephDriver_Prop" After="CostFinalize"><![CDATA[REMOVE <> "ALL" AND (&WindowsCephDriver = 3)]]></Custom>
-      <Custom Action="InstallWindowsCephDriver" Before="StartWindowsCephDriver" ><![CDATA[REMOVE <> "ALL" AND (&WindowsCephDriver = 3)]]></Custom>
+      <Custom Action="InstallWindowsCephDriver" Before="InstallWindowsWnbdEtwEvents" ><![CDATA[REMOVE <> "ALL" AND (&WindowsCephDriver = 3)]]></Custom>
+
+      <Custom Action="InstallWindowsWnbdEtwEvents_Prop" After="InstallWindowsCephDriver"><![CDATA[REMOVE <> "ALL" AND (&WindowsCephDriver = 3)]]></Custom>
+      <Custom Action="InstallWindowsWnbdEtwEvents" Before="StartWindowsCephDriver" ><![CDATA[REMOVE <> "ALL" AND (&WindowsCephDriver = 3)]]></Custom>
 
       <Custom Action="StartWindowsCephDriver_Prop" After="CostFinalize"><![CDATA[REMOVE <> "ALL" AND (&WindowsCephDriver = 3)]]></Custom>
       <Custom Action="StartWindowsCephDriver" Before="InstallFinalize" ><![CDATA[REMOVE <> "ALL" AND (&WindowsCephDriver = 3)]]></Custom>
@@ -67,7 +70,10 @@
       <Custom Action="UninstallWindowsCephDriver" Before="UninstallWindowsCephDriverPnputil" ><![CDATA[(&WindowsCephDriver=2) AND (!WindowsCephDriver=3)]]></Custom>
 
       <Custom Action="UninstallWindowsCephDriverPnputil_Prop" After="CostFinalize"><![CDATA[(&WindowsCephDriver=2) AND (!WindowsCephDriver=3)]]></Custom>
-      <Custom Action="UninstallWindowsCephDriverPnputil" Before="RemoveFiles" ><![CDATA[(&WindowsCephDriver=2) AND (!WindowsCephDriver=3)]]></Custom>
+      <Custom Action="UninstallWindowsCephDriverPnputil" Before="UninstallWindowsWnbdEtwEvents" ><![CDATA[(&WindowsCephDriver=2) AND (!WindowsCephDriver=3)]]></Custom>
+
+      <Custom Action="UninstallWindowsWnbdEtwEvents_Prop" After="CostFinalize"><![CDATA[(&WindowsCephDriver=2) AND (!WindowsCephDriver=3)]]></Custom>
+      <Custom Action="UninstallWindowsWnbdEtwEvents" Before="RemoveFiles" ><![CDATA[(&WindowsCephDriver=2) AND (!WindowsCephDriver=3)]]></Custom>
     </InstallExecuteSequence>
 
     <SetProperty Id="ARPINSTALLLOCATION" Value="[INSTALLDIR]" After="CostFinalize" />
