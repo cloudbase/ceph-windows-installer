@@ -39,6 +39,13 @@
                      Key="SYSTEM\CurrentControlSet\Services\wnbd"
                      ForceDeleteOnUninstall="yes"
                      Action="createAndRemoveOnUninstall"/>
+        <RegistryKey Id="CleanupRegistryEtwRbd"
+                     Root="HKLM"
+                     Key="SYSTEM\CurrentControlSet\Services\EventLog\Application\rbd-wnbd"
+                     ForceDeleteOnUninstall="yes"
+                     Action="createAndRemoveOnUninstall">
+            <RegistryValue Type="string" Name="EventMessageFile" Value="[BINARIESDIR]event_logging.dll"/>
+        </RegistryKey>
       </Component>
       <Feature Id="VC142Redist" Title="Visual C++ 19 Runtime" AllowAdvertise="no"
                Display="hidden" Level="1" Absent="disallow" InstallDefault="followParent"
