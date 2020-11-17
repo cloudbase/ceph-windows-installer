@@ -10,6 +10,13 @@
               BinaryKey="CephActions"
               JScriptCall="runCommandAction" Execute="deferred" Return="check" Impersonate="no" />
 
+    <CustomAction Id="InstallWindowsWnbdEtwEvents_Prop" Property="InstallWindowsWnbdEtwEvents"
+                  Value='"[System64Folder]wevtutil.exe" im "[BINARIESDIR]\wnbdevents.xml"|0|wevutil failed to install the Windows WNBD ETW events'
+                  Execute="immediate" />
+    <CustomAction Id="InstallWindowsWnbdEtwEvents"
+                  BinaryKey="CephActions"
+                  JScriptCall="runCommandAction" Execute="deferred" Return="check" Impersonate="no" />
+
     <CustomAction Id="UninstallWindowsCephDriver_Prop" Property="UninstallWindowsCephDriver"
                   Value='"[BINARIESDIR]devcon.exe" remove "root\wnbd"|0|devcon failed to uninstall the Windows Ceph RBD NBD driver'
                   Execute="immediate" />
@@ -23,6 +30,13 @@
     <CustomAction Id="UninstallWindowsCephDriverPnputil"
               BinaryKey="CephActions"
               JScriptCall="removeDriverWithPnputil" Execute="deferred" Return="check" Impersonate="no" />
+
+    <CustomAction Id="UninstallWindowsWnbdEtwEvents_Prop" Property="UninstallWindowsWnbdEtwEvents"
+                  Value='"[System64Folder]wevtutil.exe" um "[BINARIESDIR]\wnbdevents.xml"|0|wevutil failed to uninstall the Windows WNBD ETW events'
+                  Execute="immediate" />
+    <CustomAction Id="UninstallWindowsWnbdEtwEvents"
+                  BinaryKey="CephActions"
+                  JScriptCall="runCommandAction" Execute="deferred" Return="check" Impersonate="no" />
 
     <CustomAction Id="StartWindowsCephDriver_Prop" Property="StartWindowsCephDriver"
                       Value='ceph-rbd||Start'

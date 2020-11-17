@@ -89,6 +89,7 @@ function BuildWnbd() {
     copy vstudio\x64\Release\driver\* ..\..\Driver\
     copy vstudio\x64\Release\libwnbd.dll ..\..\Binaries\
     copy vstudio\x64\Release\wnbd-client.exe ..\..\Binaries\
+    copy vstudio\wnbdevents.xml ..\..\Binaries\
     copy vstudio\x64\Release\pdb\driver\* ..\..\Symbols\
     copy vstudio\x64\Release\pdb\libwnbd\* ..\..\Symbols\
     copy vstudio\x64\Release\pdb\wnbd-client\* ..\..\Symbols\
