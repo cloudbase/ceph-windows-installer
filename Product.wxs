@@ -57,7 +57,7 @@
     <UIRef Id="MyWixUI_FeatureTree" />
     <UIRef Id="WixUI_ErrorProgressText" />
 
-    <Property Id="WIXUI_EXITDIALOGOPTIONALTEXT" Value="Thank you for installing Ceph for Windows.&#xD;&#xA;&#xD;&#xA;Before using Ceph, make sure to configure it using C:\ProgramData\ceph.conf." />
+    <Property Id="WIXUI_EXITDIALOGOPTIONALTEXT" Value="Thank you for installing Ceph for Windows.&#xD;&#xA;&#xD;&#xA;Before using Ceph, make sure to configure it using C:\ProgramData\Ceph\ceph.conf." />
 
     <WixVariable Id="WixUIBannerBmp" Value="images\bannrbmp.bmp" />
     <WixVariable Id="WixUIDialogBmp" Value="images\dlgbmp.bmp" />
@@ -94,7 +94,9 @@
       <Directory Id="CommonAppDataFolder">
         <Directory Id="APPDATADIR" Name="Ceph">
           <Component Id="AppDataDir" Guid="{B84C1264-BE4A-409F-A1F1-60FCF3F124B4}">
-            <CreateFolder />
+            <CreateFolder>
+                <PermissionEx Sddl="D:PAI(A;OICI;FA;;;SY)(A;OICI;FA;;;BA)" />
+            </CreateFolder>
           </Component>
         </Directory>
       </Directory>
