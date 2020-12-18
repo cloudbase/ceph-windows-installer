@@ -148,6 +148,7 @@ function BuildCephWSL() {
     popd
 }
 
+cd $PSScriptRoot
 $depsBuildDir = "Dependencies"
 
 SetVCVars
