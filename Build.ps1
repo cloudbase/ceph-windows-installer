@@ -41,7 +41,10 @@ Param(
 
     # Don't remove the dependencies build directory if it exists.
     # This can be useful during development
-    [switch]$RetainDependenciesBuildDir = $false
+    [switch]$RetainDependenciesBuildDir = $false,
+
+    [switch]$IncludeCephDebugSymbols = $false,
+    [switch]$MinimalCephDebugInfo = $true
 )
 
 $ErrorActionPreference = "Stop"
@@ -128,7 +131,7 @@ function GetCephBinaries() {
     popd
 }
 
-function BuildCephWSL() {
+function BuildCephWSL($includeDebugSymbols, $minimalDebugInfo) {
     pushd $depsBuildDir
 
     if (!(Test-Path ceph)) {
@@ -139,7 +142,22 @@ function BuildCephWSL() {
     }
     cd ceph
 
-    & wsl.exe -d $WSLDistro -u root -e bash -c "BUILD_ZIP=1 STRIP_ZIPPED=1 SKIP_TESTS=1 SKIP_BINDIR_CLEAN=1 ./win32_build.sh"
+    if ($includeDebugSymbols) {
+        if ($minimalDebugInfo) {
+            $buildModeFlags = "CFLAGS=-g1 CXXFLAGS=-g1 CMAKE_BUILD_TYPE=Release"
+        }
+        else {
+            $buildModeFlags = "CMAKE_BUILD_TYPE=RelWithDebInfo"
+        }
+    }
+    else {
+        $buildModeFlags = "CMAKE_BUILD_TYPE=Release"
+    }
+
+    $buildCmd = (
+        "ENABLE_SHARED=ON BUILD_ZIP=1 SKIP_TESTS=1 SKIP_BINDIR_CLEAN=1 " +
+        "$buildModeFlags ./win32_build.sh")
+    & wsl.exe -d $WSLDistro -u root -e bash -c $buildCmd
     if($LASTEXITCODE) {
         throw "Ceph WSL build failed"
     }
@@ -168,7 +186,8 @@ foreach ($dir in $RequiredDirs)
 }
 
 if($UseWSL) {
-    BuildCephWSL
+    BuildCephWSL -includeDebugSymbols $IncludeCephDebugSymbols `
+                 -minimalDebugInfo $MinimalCephDebugInfo
 } else {
     GetCephBinaries
 }
