@@ -162,7 +162,7 @@ function BuildCephWSL($includeDebugSymbols, $minimalDebugInfo) {
         throw "Ceph WSL build failed"
     }
 
-    CopyCephBinaries "build\bin_stripped" "..\..\Binaries\"
+    CopyCephBinaries "build\bin" "..\..\Binaries\"
     popd
 }
 
