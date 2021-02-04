@@ -104,13 +104,15 @@ function CopyCephBinaries($sourcePath, $targetPath) {
     $targetFullPath = (Get-Item $targetPath).FullName
 
     pushd $sourcePath
-    copy -Path *.dll,`
-    ceph-conf.exe,`
-    rados.exe,`
-    rbd.exe,`
-    rbd-wnbd.exe,`
-    ceph-dokan.exe `
-    -Destination $targetFullPath
+    copy -Recurse -Force -Path `
+        *.dll,`
+        *.debug,`
+        ceph-conf.exe,`
+        rados.exe,`
+        rbd.exe,`
+        rbd-wnbd.exe,`
+        ceph-dokan.exe `
+        -Destination $targetFullPath
     popd
 }
 
@@ -155,7 +157,7 @@ function BuildCephWSL($includeDebugSymbols, $minimalDebugInfo) {
     }
 
     $buildCmd = (
-        "ENABLE_SHARED=ON BUILD_ZIP=1 SKIP_TESTS=1 SKIP_BINDIR_CLEAN=1 " +
+        "time ENABLE_SHARED=ON SKIP_TESTS=1 SKIP_BINDIR_CLEAN=1 " +
         "$buildModeFlags ./win32_build.sh")
     & wsl.exe -d $WSLDistro -u root -e bash -c $buildCmd
     if($LASTEXITCODE) {
