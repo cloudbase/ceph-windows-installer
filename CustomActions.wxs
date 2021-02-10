@@ -4,7 +4,7 @@
     <Binary Id="CephActions" SourceFile="Actions\CephActions.js" />
 
     <CustomAction Id="InstallWindowsCephDriver_Prop" Property="InstallWindowsCephDriver"
-                  Value='"[BINARIESDIR]devcon.exe" install "[DRIVERDIR]\wnbd.inf" "root\wnbd"|0|devcon failed to install the Windows Ceph RBD NBD driver'
+                  Value='"[BINARIESDIR]wnbd-client.exe" install-driver "[DRIVERDIR]\wnbd.inf"|0|Failed to install the Windows Ceph RBD WNBD driver. A reboot might be required. Check the MSI log for more details.'
                   Execute="immediate" />
     <CustomAction Id="InstallWindowsCephDriver"
               BinaryKey="CephActions"
@@ -18,18 +18,11 @@
                   JScriptCall="runCommandAction" Execute="deferred" Return="check" Impersonate="no" />
 
     <CustomAction Id="UninstallWindowsCephDriver_Prop" Property="UninstallWindowsCephDriver"
-                  Value='"[BINARIESDIR]devcon.exe" remove "root\wnbd"|0|devcon failed to uninstall the Windows Ceph RBD NBD driver'
+                  Value='"[BINARIESDIR]wnbd-client.exe" uninstall-driver|0|Failed to uninstall the Windows Ceph RBD WNBD driver'
                   Execute="immediate" />
     <CustomAction Id="UninstallWindowsCephDriver"
               BinaryKey="CephActions"
               JScriptCall="runCommandAction" Execute="deferred" Return="check" Impersonate="no" />
-
-    <CustomAction Id="UninstallWindowsCephDriverPnputil_Prop" Property="UninstallWindowsCephDriverPnputil"
-                  Value='wnbd|0|pnputil failed to uninstall the Windows Ceph RBD NBD driver'
-                  Execute="immediate" />
-    <CustomAction Id="UninstallWindowsCephDriverPnputil"
-              BinaryKey="CephActions"
-              JScriptCall="removeDriverWithPnputil" Execute="deferred" Return="check" Impersonate="no" />
 
     <CustomAction Id="UninstallWindowsWnbdEtwEvents_Prop" Property="UninstallWindowsWnbdEtwEvents"
                   Value='"[System64Folder]wevtutil.exe" um "[BINARIESDIR]\wnbdevents.xml"|0|wevutil failed to uninstall the Windows WNBD ETW events'
