@@ -74,10 +74,7 @@
       <Custom Action="StartWindowsCephDriver" Before="InstallFinalize" ><![CDATA[REMOVE <> "ALL" AND (&WindowsCephDriver = 3)]]></Custom>
 
       <Custom Action="UninstallWindowsCephDriver_Prop" After="CostFinalize"><![CDATA[(&WindowsCephDriver=2) AND (!WindowsCephDriver=3)]]></Custom>
-      <Custom Action="UninstallWindowsCephDriver" Before="UninstallWindowsCephDriverPnputil" ><![CDATA[(&WindowsCephDriver=2) AND (!WindowsCephDriver=3)]]></Custom>
-
-      <Custom Action="UninstallWindowsCephDriverPnputil_Prop" After="CostFinalize"><![CDATA[(&WindowsCephDriver=2) AND (!WindowsCephDriver=3)]]></Custom>
-      <Custom Action="UninstallWindowsCephDriverPnputil" Before="UninstallWindowsWnbdEtwEvents" ><![CDATA[(&WindowsCephDriver=2) AND (!WindowsCephDriver=3)]]></Custom>
+      <Custom Action="UninstallWindowsCephDriver" Before="UninstallWindowsWnbdEtwEvents"><![CDATA[(&WindowsCephDriver=2) AND (!WindowsCephDriver=3)]]></Custom>
 
       <Custom Action="UninstallWindowsWnbdEtwEvents_Prop" After="CostFinalize"><![CDATA[(&WindowsCephDriver=2) AND (!WindowsCephDriver=3)]]></Custom>
       <Custom Action="UninstallWindowsWnbdEtwEvents" Before="RemoveFiles" ><![CDATA[(&WindowsCephDriver=2) AND (!WindowsCephDriver=3)]]></Custom>
