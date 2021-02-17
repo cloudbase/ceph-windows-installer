@@ -116,11 +116,11 @@ function CopyCephBinaries($sourcePath, $targetPath) {
     popd
 }
 
-function GetCephBinaries() {
+function GetCephBinaries($cephZipPath) {
     pushd $depsBuildDir
 
     if (!(Test-Path cephzip)) {
-        & scp.exe $CephZipPath ceph.zip
+        & scp.exe $cephZipPath ceph.zip
         if($LASTEXITCODE) {
             throw "scp failed"
         }
@@ -164,7 +164,9 @@ function BuildCephWSL($includeDebugSymbols, $minimalDebugInfo) {
         throw "Ceph WSL build failed"
     }
 
-    CopyCephBinaries "build\bin" "..\..\Binaries\"
+    $CephZipPath = (Resolve-Path "build\ceph.zip").Path
+    GetCephBinaries -cephZipPath $CephZipPath
+
     popd
 }
 
@@ -184,14 +186,14 @@ $RequiredDirs = "Driver", "Binaries", "Symbols"
 foreach ($dir in $RequiredDirs)
 {
     mkdir -Force $dir
-    del $dir\*
+    del -Recurse $dir\*
 }
 
 if($UseWSL) {
     BuildCephWSL -includeDebugSymbols $IncludeCephDebugSymbols `
                  -minimalDebugInfo $MinimalCephDebugInfo
 } else {
-    GetCephBinaries
+    GetCephBinaries -cephZipPath $CephZipPath
 }
 
 BuildWnbd
