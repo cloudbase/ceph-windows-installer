@@ -171,7 +171,7 @@ function BuildCephWSL($includeDebugSymbols, $minimalDebugInfo) {
 }
 
 cd $PSScriptRoot
-$depsBuildDir = "Dependencies"
+$depsBuildDir = (Resolve-Path "Dependencies").Path
 
 SetVCVars
 
