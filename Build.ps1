@@ -48,6 +48,7 @@ Param(
 )
 
 $ErrorActionPreference = "Stop"
+. "$PSScriptRoot\BuildUtils.ps1"
 
 function SetVCVars($version="2019", $platform="x86_amd64") {
     pushd "$ENV:ProgramFiles (x86)\Microsoft Visual Studio\$version\Community\VC\Auxiliary\Build"
@@ -65,8 +66,11 @@ function SetVCVars($version="2019", $platform="x86_amd64") {
 }
 
 function Sign($x509thumbprint, $crossCertPath, $timestampUrl, $path) {
-    & signtool.exe sign /ac $crossCertPath /sha1 $x509thumbprint /tr $timestampUrl /td SHA256 /v $path
-    if($LASTEXITCODE) { throw "signtool failed" }
+    ExecRetry {
+        & signtool.exe sign /ac $crossCertPath /sha1 $x509thumbprint `
+                            /tr $timestampUrl /td SHA256 /v $path
+        if ($LASTEXITCODE) { throw "signtool failed" }
+    }
 }
 
 function BuildWnbd() {
