@@ -11,11 +11,11 @@ Param(
     [Parameter(ParameterSetName="CephWSL")]
     [Parameter(ParameterSetName="CephWSLSign")]
     [ValidateNotNullOrEmpty()]
-    [string]$CephRepoUrl = "https://github.com/petrutlucian94/ceph",
+    [string]$CephRepoUrl = "https://github.com/ceph/ceph",
     [Parameter(ParameterSetName="CephWSL")]
     [Parameter(ParameterSetName="CephWSLSign")]
     [ValidateNotNullOrEmpty()]
-    [string]$CephRepoBranch = "wnbd_dev",
+    [string]$CephRepoBranch = "pacific",
 
     # Archive containing the Ceph Windows binaries, will be fetched using scp.
     # Can be a local path, a UNC path or a remote scp path.
