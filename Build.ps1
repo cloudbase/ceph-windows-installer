@@ -66,8 +66,13 @@ function SetVCVars($version="2019", $platform="x86_amd64") {
 }
 
 function Sign($x509thumbprint, $crossCertPath, $timestampUrl, $path) {
-    ExecRetry {
-        & signtool.exe sign /ac $crossCertPath /sha1 $x509thumbprint `
+    $crosscert_args = @()
+    if ($crossCertPath) {
+        $crosscert_args = @("/ac", $crossCertPath)
+    }
+
+    ExecRetry {    
+        & signtool.exe sign $crosscert_args /sha1 $x509thumbprint `
                             /tr $timestampUrl /td SHA256 /v $path
         if ($LASTEXITCODE) { throw "signtool failed" }
     }
