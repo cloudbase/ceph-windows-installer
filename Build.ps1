@@ -36,7 +36,6 @@ Param(
     [string]$SignTimestampUrl,
     [Parameter(ParameterSetName="CephZipPathSign", Mandatory=$true)]
     [Parameter(ParameterSetName="CephWSLSign", Mandatory=$true)]
-    [ValidateNotNullOrEmpty()]
     [string]$SignCrossCertPath,
 
     # Don't remove the dependencies build directory if it exists.
