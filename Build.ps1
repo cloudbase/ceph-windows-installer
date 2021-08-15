@@ -34,8 +34,8 @@ Param(
     [Parameter(ParameterSetName="CephWSLSign", Mandatory=$true)]
     [ValidateNotNullOrEmpty()]
     [string]$SignTimestampUrl,
-    [Parameter(ParameterSetName="CephZipPathSign", Mandatory=$true)]
-    [Parameter(ParameterSetName="CephWSLSign", Mandatory=$true)]
+    [Parameter(ParameterSetName="CephZipPathSign")]
+    [Parameter(ParameterSetName="CephWSLSign")]
     [ValidateNotNullOrEmpty()]
     [string]$SignCrossCertPath,
 
