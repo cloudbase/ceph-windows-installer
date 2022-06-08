@@ -51,7 +51,16 @@ $ErrorActionPreference = "Stop"
 . "$PSScriptRoot\BuildUtils.ps1"
 
 function SetVCVars($version="2019", $platform="x86_amd64") {
-    pushd "$ENV:ProgramFiles (x86)\Microsoft Visual Studio\$version\Community\VC\Auxiliary\Build"
+    $vcBaseDir = Join-Path ${env:ProgramFiles(x86)} "Microsoft Visual Studio\$version"
+    $vcDir = Join-Path $vcBaseDir "Community\VC\Auxiliary\Build"
+    if(!(Test-Path $vcDir)) {
+        # the community edition is not installed, try finding the build tools
+        $vcDir = Join-Path $vcBaseDir "BuildTools\VC\Auxiliary\Build"
+        if(!(Test-Path $vcDir)) {
+            throw "could not find Visual Studio $version build tools"
+        }
+    }
+    pushd $vcDir
     try {
         cmd /c "vcvarsall.bat $platform & set" |
         foreach {
