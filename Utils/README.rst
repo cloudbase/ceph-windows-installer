@@ -1,2 +1,2 @@
 DevCon sources:
-https://github.com/microsoft/Windows-driver-samples/tree/master/setup/devcon
+https://github.com/microsoft/Windows-driver-samples/tree/main/setup/devcon
