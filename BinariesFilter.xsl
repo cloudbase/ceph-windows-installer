@@ -13,7 +13,7 @@ xmlns:wix="http://schemas.microsoft.com/wix/2006/wi">
 
 <!-- We're using this filter to avoid duplicating the rbd-wnbd component,
      which is also used by the service component. -->
-<xsl:key name="rbd-wnbd-search" match="wix:Component[contains(wix:File/@Source, 'rbd-wnbd.exe')]" use="@Id" />
+<xsl:key name="rbd-wnbd-search" match="wix:Component[substring(wix:File/@Source, string-length(wix:File/@Source)-11)='rbd-wnbd.exe']" use="@Id" />
 <xsl:template match="wix:Component[key('rbd-wnbd-search', @Id)]" />
 
 </xsl:stylesheet>
