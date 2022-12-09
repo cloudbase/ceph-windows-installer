@@ -54,6 +54,12 @@
       </Feature>
     </Feature>
 
+	<Feature Id="Dokan" Title="Dokany v2.0" AllowAdvertise="no"
+        Display="expand" Level="1" Absent="allow" InstallDefault="local"
+        TypicalDefault="install">
+		<MergeRef Id="Dokan_x64" />
+	</Feature>
+	  
     <UIRef Id="MyWixUI_FeatureTree" />
     <UIRef Id="WixUI_ErrorProgressText" />
 
@@ -168,6 +174,7 @@
   <Fragment>
     <DirectoryRef Id="TARGETDIR">
       <Merge Id="VC142Redist_x64" SourceFile="Microsoft_VC142_CRT_x64.msm" DiskId="1" Language="0" />
+      <Merge Id="Dokan_x64" SourceFile="DokanMSM_x64.msm" DiskId="1" Language="1033" />
     </DirectoryRef>
   </Fragment>
 
