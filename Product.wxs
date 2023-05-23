@@ -78,6 +78,11 @@
 
       <Custom Action="UninstallWindowsWnbdEtwEvents_Prop" After="CostFinalize"><![CDATA[(&WindowsCephDriver=2) AND (!WindowsCephDriver=3)]]></Custom>
       <Custom Action="UninstallWindowsWnbdEtwEvents" Before="RemoveFiles" ><![CDATA[(&WindowsCephDriver=2) AND (!WindowsCephDriver=3)]]></Custom>
+      <!-- Schedule a reboot after installing or uninstalling the driver. -->
+      <ScheduleReboot After="InstallFinalize">
+        <![CDATA[(REMOVE <> "ALL" AND (&WindowsCephDriver = 3)) OR ((&WindowsCephDriver=2) AND (!WindowsCephDriver=3))]]>
+      </ScheduleReboot>
+
     </InstallExecuteSequence>
 
     <SetProperty Id="ARPINSTALLLOCATION" Value="[INSTALLDIR]" After="CostFinalize" />

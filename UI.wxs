@@ -35,7 +35,7 @@
       <!-- Force elevation during change for product customization-->
       <Publish Dialog="MaintenanceTypeDlg" Control="ChangeButton" Property="REINSTALL" Value="ALL">1</Publish>
       <Publish Dialog="MaintenanceTypeDlg" Control="ChangeButton" Property="REINSTALLMODE" Value="vamus">1</Publish>
-      <Publish Dialog="MaintenanceTypeDlg" Control="ChangeButton" Property="REBOOT" Value="ReallySuppress">1</Publish>
+      <!-- <Publish Dialog="MaintenanceTypeDlg" Control="ChangeButton" Property="REBOOT" Value="ReallySuppress">1</Publish> -->
 
       <Publish Dialog="MaintenanceTypeDlg" Control="ChangeButton" Event="NewDialog" Value="CustomizeDlg">1</Publish>
       <Publish Dialog="MaintenanceTypeDlg" Control="RepairButton" Event="NewDialog" Value="VerifyReadyDlg">1</Publish>
