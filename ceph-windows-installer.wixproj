@@ -18,7 +18,12 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
-    <DefineConstants>BinariesPath=Binaries;SymbolsPath=Symbols;</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup>
+    <CephMsiVersion Condition=" '$(CephMsiVersion)' == '' ">1.0.0.0</CephMsiVersion>
+    <CephProductName Condition=" '$(CephRelease)' == '' ">Ceph for Windows</CephProductName>
+    <CephProductName Condition=" '$(CephRelease)' != '' ">Ceph for Windows ($(CephRelease))</CephProductName>
+    <DefineConstants>BinariesPath=Binaries;SymbolsPath=Symbols;CephMsiVersion=$(CephMsiVersion);CephProductName=$(CephProductName)</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Binaries.wxs" />
