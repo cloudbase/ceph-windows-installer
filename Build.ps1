@@ -17,6 +17,11 @@ Param(
     [ValidateNotNullOrEmpty()]
     [string]$CephRepoBranch = "pacific",
 
+    # Example: 16.0.0.0, default: 1.0.0.0.
+    [string]$CephMsiVersion,
+    # Example: Reef. If specified, it will be included in the product name.
+    [string]$CephRelease,
+
     # Archive containing the Ceph Windows binaries, will be fetched using scp.
     # Can be a local path, a UNC path or a remote scp path.
     [Parameter(ParameterSetName="CephZipPath", Mandatory=$true)]
@@ -208,7 +213,9 @@ if($UseWSL) {
 BuildWnbd
 
 $configuration = "Release"
-& msbuild.exe ceph-windows-installer.sln /p:Platform=x64 /p:Configuration=$configuration
+& msbuild.exe ceph-windows-installer.sln `
+    /p:Platform=x64 /p:Configuration=$configuration `
+    /p:CephMsiVersion=$CephMsiVersion /p:CephRelease=$CephRelease
 if($LASTEXITCODE) {
     throw "msbuild failed"
 }

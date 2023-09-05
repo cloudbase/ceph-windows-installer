@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
      xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
-  <Product Id="{785B1085-EF9D-4566-A522-50F400273F07}" Name="Ceph for Windows" Language="1033" Version="1.0.0.0"
+  <Product Id="{785B1085-EF9D-4566-A522-50F400273F07}" Name="$(var.CephProductName)" Language="1033" Version="$(var.CephMsiVersion)"
            Manufacturer="Ceph" UpgradeCode="5d5011f3-f107-4739-ad84-3d49dfebd221">
     <Package InstallerVersion="405" Compressed="yes" InstallScope="perMachine" InstallPrivileges="elevated" Platform="x64" />
 
