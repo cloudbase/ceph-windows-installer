@@ -20,10 +20,11 @@
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup>
-    <CephMsiVersion Condition=" '$(CephMsiVersion)' == '' ">1.0.0.0</CephMsiVersion>
+    <CephMsiVersionSafe Condition=" '$(CephMsiVersion)' == '' ">1.0.0.0</CephMsiVersionSafe>
+    <CephMsiVersionSafe Condition=" '$(CephMsiVersion)' != '' ">$(CephMsiVersion)</CephMsiVersionSafe>
     <CephProductName Condition=" '$(CephRelease)' == '' ">Ceph for Windows</CephProductName>
     <CephProductName Condition=" '$(CephRelease)' != '' ">Ceph for Windows ($(CephRelease))</CephProductName>
-    <DefineConstants>BinariesPath=Binaries;SymbolsPath=Symbols;CephMsiVersion=$(CephMsiVersion);CephProductName=$(CephProductName)</DefineConstants>
+    <DefineConstants>BinariesPath=Binaries;SymbolsPath=Symbols;CephMsiVersion=$(CephMsiVersionSafe);CephProductName=$(CephProductName)</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Binaries.wxs" />
